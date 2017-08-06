@@ -1,6 +1,4 @@
 * 拼接单词
-** 先分配后复制
-** 循环不变式，证明循环正确性
   input:  word := {"hello", "world"}
 
   output: "hello world"
@@ -50,8 +48,7 @@
   }
 #+END_SRC
   
-  tips: 循环中总会有个循环不变式子。 复制时，保持每次复制 word + sep，则循环完成复制过去格式为
-  word1+sep+word2+sep + ... + word[k]+sep
+  tips: 循环中总会有个循环不变式子。 复制时，保持每次复制 word + sep，则循环完成复制过去格式为word1+sep+word2+sep + ... + word[k]+sep
   所以当k 为倒数第二个单词， 把最后一个单词复制过去。-> word1+sep + ...+wordn
   Join是先把第一个单词复制过去，那么之后的循环不变式就是 sep + word[k], 此时k 可以 = 最后一个单词。
 #+BEGIN_SRC go
@@ -61,3 +58,9 @@
     bp += copy(b[bp:], s)
   }
 #+END_SRC
+
+* 总结
+  - 字符串操作尽量用标准款库
+  - 可以考虑bytes.Buffer
+  - 先统计所需空间 再复制， 当然性能瓶颈不在+= 可以不用
+  - 循环不变式， 对于书写循环和证明有帮助
