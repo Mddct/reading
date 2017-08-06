@@ -1,0 +1,23 @@
+*  拼接单词
+  input:  wor := {"hello", "world"}
+  
+  output: "hello world"
+
+  思路 1： 每个单词后面加一个空格， 除了最后一个单词
+  #+BEGIN_SRC go
+  func join (s []string, sep string) string{
+    l := len(s)
+    if l <= 0{
+      return ""
+    }
+    var ret string
+    for i := 0; i < len(s) -1; i++{
+      ret += s[i]
+      ret += sep
+    }
+    // notice : 当s 为空时候，len(s)-1 < 0
+    // 所以需要判断下len(s) 是否为0 或者在一开始判断
+    ret += s[len(s)-1:]
+    return
+  }
+  #+END_SRC
