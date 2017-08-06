@@ -1,4 +1,4 @@
-*  拼接单词
+*  COMMENT 拼接单词
   input:  word := {"hello", "world"}
 
   output: "hello world"
@@ -25,3 +25,35 @@
   #+BEGIN_SRC go
   strings.Join(s, sep)
   #+END_SRC
+
+  剖析strings中的join：
+  
+  由于思路1中对字符串 += 操作， 多次这种操作会有多次内存分配
+  Join的思路是一次计算需要所有的空间， 然后依次把单词和分割符拷贝过来
+#+BEGIN_SRC go
+  func Join(s []string, sep string) string{
+    l := len(s)
+    //...
+    //统计需要的bytes空间, n 个单词就需要n-1个lsep
+    // 总空间为 len(sep) * (len(s) -1) + s总共的单词字符总数
+    n := 0
+    //计算单词总字符数
+    for i := range s{
+      n += len(s[i])
+    }
+
+  ``	n += len(sep) * (l-1)
+    // ...
+  }
+#+END_SRC
+  
+  tips: 循环中总会有个循环不变式子。 复制时，保持每次复制 word + sep，则循环完成复制过去格式为word1+sep+word2+sep + ... + word[k]+sep
+  所以当k 为倒数第二个单词， 把最后一个单词复制过去。-> word1+sep + ...+wordn
+  Join是先把第一个单词复制过去，那么之后的循环不变式就是 sep + word[k], 此时k 可以 = 最后一个单词。
+#+BEGIN_SRC go
+  bp := copy(b, a[0])
+  for _, s := range a[1:] {
+    bp += copy(b[bp:], sep)
+    bp += copy(b[bp:], s)
+  }
+#+END_SRC
