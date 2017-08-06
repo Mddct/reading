@@ -42,7 +42,7 @@
       n += len(s[i])
     }
 
-  ``	n += len(sep) * (l-1)
+  	n += len(sep) * (l-1)
     // ...
   }
 #+END_SRC
