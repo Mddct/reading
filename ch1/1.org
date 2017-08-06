@@ -1,9 +1,9 @@
 *  拼接单词
-  input:  wor := {"hello", "world"}
-  
+  input:  word := {"hello", "world"}
+
   output: "hello world"
 
-  思路 1： 每个单词后面加一个空格， 除了最后一个单词
+  - 思路 1： 每个单词后面加一个空格， 除了最后一个单词
   #+BEGIN_SRC go
   func join (s []string, sep string) string{
     l := len(s)
@@ -20,4 +20,8 @@
     ret += s[len(s)-1:]
     return
   }
+  #+END_SRC
+  - 思路 2： 利用strings包中的Join
+  #+BEGIN_SRC go
+  strings.Join(s, sep)
   #+END_SRC
