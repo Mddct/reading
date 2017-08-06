@@ -1,4 +1,4 @@
-*  COMMENT 拼接单词
+* 拼接单词
   input:  word := {"hello", "world"}
 
   output: "hello world"
@@ -30,6 +30,7 @@
   
   由于思路1中对字符串 += 操作， 多次这种操作会有多次内存分配
   Join的思路是一次计算需要所有的空间， 然后依次把单词和分割符拷贝过来
+
 #+BEGIN_SRC go
   func Join(s []string, sep string) string{
     l := len(s)
@@ -42,7 +43,7 @@
       n += len(s[i])
     }
 
-  	n += len(sep) * (l-1)
+  ``	n += len(sep) * (l-1)
     // ...
   }
 #+END_SRC
